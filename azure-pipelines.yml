@@ -2,13 +2,17 @@ trigger:
   - main
 
 pool:
-  name: 'MyLocalPool'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: Maven@3
-  displayName: 'Maven Build and Package'
+  displayName: 'Build Maven Project & Generate JAR'
   inputs:
     mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '17'
+    jdkArchitectureOption: 'x64'
     goals: 'clean package'
 
 - task: CopyFiles@2
